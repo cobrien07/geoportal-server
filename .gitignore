@@ -28,6 +28,7 @@ local.properties
 # PDT-specific
 .buildpath
 
+geoportal/www/META-INF/context.xml
 
 #################
 ## Visual Studio

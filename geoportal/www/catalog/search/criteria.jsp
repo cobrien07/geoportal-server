@@ -1035,6 +1035,7 @@
         aoiMaxY = parseInt(tmpAoiMaxY);
         aoiWkid = parseInt(tmpAoiWkid);
        
+        updateThumbnails();
       }),
       preventCache: true,
       error: function(args) {
@@ -1068,6 +1069,17 @@
     return false;
   }
 
+  function updateThumbnails() {
+    console.log("Updating thumbnails...");
+    dojo.query("img.resultsThumbnail").forEach(function(node){ 
+      if (node && node.src) {
+        var link = dojo.create("a",{href: node.src, target: "_blank", alt: "thumbnail"});
+        dojo.place(link,node,"replace");
+        dojo.place(node,link);
+      }
+    });
+  }
+  
   /**
   Updated by distributed search iframe
    **/
