@@ -36,6 +36,28 @@
   gptMapConfig.locatorSingleFieldParameter = "<%=imConfig.getLocatorSingleFieldParameter()%>";
   gptMapConfig.locatorGraphicURL = "<%=request.getContextPath()%>/catalog/images/pushpin_red.gif";
   gptMapConfig.mapVisibleLayers = "<%=imConfig.getMapVisibleLayers()%>";
+  
+  dojo.ready(function(){
+    updateThumbnails();
+  });
+  
+  function updateThumbnails() {
+    console.log("Updating thumbnails...");
+    dojo.query("iframe").forEach(function(frame){
+      if (frame) {
+        var doc = frame.contentWindow.document;
+        dojo.withDoc(doc,function(){
+          dojo.query("img.thumbnail").forEach(function(node){ 
+            if (node && node.src) {
+              var link = dojo.create("a",{href: node.src, target: "_blank", alt: "thumbnail"});
+              dojo.place(link,node,"replace");
+              dojo.place(node,link);
+            }
+          });
+        },this);
+      }
+    });
+  }
 </script>
 
 <h:form id="mdDetails" styleClass="mdDetails">
