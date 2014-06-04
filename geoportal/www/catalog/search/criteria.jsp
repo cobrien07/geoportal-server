@@ -1073,9 +1073,12 @@
     console.log("Updating thumbnails...");
     dojo.query("img.resultsThumbnail").forEach(function(node){ 
       if (node && node.src) {
-        var link = dojo.create("a",{href: node.src, target: "_blank", alt: "thumbnail"});
-        dojo.place(link,node,"replace");
-        dojo.place(node,link);
+        var src = node.src;
+        dojo.connect(node,"onclick",function(){
+          var w = window.open("","_blank");
+          w.document.write("<img src='" +src+ "'/>");
+        });
+        dojo.style(node,"cursor","pointer");
       }
     });
   }
