@@ -54,6 +54,7 @@
   </style>
 
  <script type="text/javascript">
+    
     // &filter parameter based on window.location.href
     function scAppendExtendedFilter(sUrlParams,bIsRemoteCatalog) {
       if (bIsRemoteCatalog == false) {
@@ -1082,6 +1083,8 @@
       }
     });
   }
+  
+  dojo.addOnLoad(updateThumbnails);
   
   /**
   Updated by distributed search iframe
