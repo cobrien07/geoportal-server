@@ -52,7 +52,7 @@
               var src = node.src;
               dojo.connect(node,"onclick",function(){
                 var w = window.open("","_blank");
-                w.document.write("<html><head><title>Thumbnail graphics</title></head><body><img src='" +src+ "'/></body></html>");
+                w.document.write("<html><head><title>" +src+ "</title></head><body><img src='" +src+ "'/></body></html>");
               });
               dojo.style(node,"cursor","pointer");
             }
