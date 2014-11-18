@@ -78,6 +78,7 @@ import javax.servlet.http.HttpServletResponse;
  *       <li>the XML must be supplied within the body of the HTTP request.</li>
  *       <li>URL parameter publicationMethod is accepted, values are upload,editor,other</li>
  *       <li>URL parameter asDraft=true is accepted</li>
+ *       <li>URL parameter approve=true is accepted</li>
  *       <li>if no document provided, that means this is resource registration request.</li>
  *       <li>returns HTTP 200 when a document is replaced</li>
  *       <li>returns HTTP 201 when a document is created</li>
@@ -532,8 +533,15 @@ public class ManageDocumentServlet extends BaseServlet {
         }
         
         String asDraft = Val.chkStr(request.getParameter("asDraft"));
+        String approve = Val.chkStr(request.getParameter("approve"));
+        LOGGER.fine("Approving of uploaded documents through the REST with 'approve' flag: "+approve);
         if (asDraft.equals("true")) {
           pubRecord.setApprovalStatus(MmdEnums.ApprovalStatus.draft.toString());
+        } else if (approve.equals("true")) {
+          pubRecord.setApprovalStatus(MmdEnums.ApprovalStatus.approved.toString());
+          if (!publisher.getIsAdministrator()) {
+            LOGGER.fine("Approving of uploaded documents through the REST without being administrator.");
+          }
         }
         
         this.determineSourceUri(request,context,pubRequest);
